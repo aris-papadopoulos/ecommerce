@@ -1,0 +1,59 @@
+@import './vars';
+
+.product {
+    &__wrapper {
+        display: flex;
+        justify-content: space-around;
+        background-color: #fff;
+        padding: 20px;
+    }
+    &__image {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        width: 50%;
+        max-width: 400px;
+        height: 400px;
+    }
+    &__info {
+        width: 50%;
+    }
+    &__title {
+        font-size: 20px;
+        font-weight: 400;
+    }
+    &__price {
+        display: inline-block;
+        font-size: 28px;
+        font-weight: 700;
+        margin: 0;
+    }
+    &__quantity {
+        display: flex;
+        flex-direction: row;
+        margin-top: 10px;
+        > * {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 32px;
+            height: 32px;
+            border: 1px solid #222; 
+            box-sizing: border-box;
+        }
+        > input {
+            text-align: center;
+            &:focus {
+                outline: none;
+            }  
+        }
+        > span {
+            cursor: pointer;
+            user-select: none; 
+        }
+    }
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+}
