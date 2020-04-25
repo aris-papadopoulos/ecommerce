@@ -9,7 +9,7 @@ import thunk from 'redux-thunk';
 
 
 // Components
-import ProductListings from './components/ProductListings';
+import Product from './components/Product';
 import Category from './components/Category';
 import Homepage from './components/Homepage';
 import NotFound from './components/NotFound';
@@ -31,7 +31,7 @@ ReactDOM.render(
             <Router history={history}>
                 <Header />
                 <Switch>
-                    <Route exact path="/product/:id" component={ProductListings} />
+                    <Route exact path="/product/:id/:slug" component={Product} />
                     <Route exact path="/category/:id/:slug" component={Category} />
                     <Route exact path="/" component={Homepage} />
                     <Route path="*" component={NotFound} />
