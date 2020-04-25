@@ -1,18 +1,13 @@
 import { LIST_CATEGORIES } from '../actions';
-
-
-// const initialState = {
-//     status: null,
-//     token: null,
-//     isLoading: false
-// }
+import { orderBy } from 'lodash';
 
 export default function (state = [], action) {
-    
+
     switch(action.type) {
         
         case LIST_CATEGORIES:
-            return action.payload;
+            const orderedCategories = orderBy(action.payload, ['position'], ['asc']);
+            return orderedCategories;
 
         default:
             return state;
