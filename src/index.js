@@ -19,7 +19,7 @@ import './styles/index.scss';
 import * as serviceWorker from './serviceWorker';
 
 // History
-import createBrowserHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 export const history = createBrowserHistory();
 
 // Create store and apply middleware
