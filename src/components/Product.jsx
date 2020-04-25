@@ -15,14 +15,14 @@ const Product = (props) => {
         if (id !== prevID) {
             getProduct(id);
         }
-    }, [id, prevID]);
+    }, [id, prevID, getProduct]);
     
     // Mount / Unmount events only
     useEffect(() => {
         return () => {
             clearSingleProduct()
         }
-    }, []);
+    }, [clearSingleProduct]);
 
 
     console.log(product, id);

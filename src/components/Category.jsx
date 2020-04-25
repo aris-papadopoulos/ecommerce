@@ -24,7 +24,7 @@ const Category = (props) => {
         return () => {
             clearProducts()
         }
-    }, []);
+    }, [clearProducts]);
 
     const createMarkup = (excerpt) => { return {__html: excerpt}; };
 
