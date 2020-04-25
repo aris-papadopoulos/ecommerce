@@ -1,21 +1,30 @@
 import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { listProducts } from '../actions';
+import { listProducts, clearProducts } from '../actions';
 import '../styles/category.scss';
 
 const Category = (props) => {
 
-    const { products, listProducts } = props;
+    const { products, listProducts, clearProducts } = props;
     const { id } = props.match.params;
 
     const prevID = usePrevious(id);
 
+    // Fetch products when URL changes
     useEffect(() => {
         if (id !== prevID) {
-          listProducts(id);
+            const replaceItems = true;
+            listProducts(id, replaceItems);
         }
     }, [products, listProducts, id, prevID]);
+
+    // Mount / Unmount events only
+    useEffect(() => {
+        return () => {
+            clearProducts()
+        }
+    }, []);
 
     const createMarkup = (excerpt) => { return {__html: excerpt}; };
 
@@ -68,4 +77,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { listProducts })(Category);
+export default connect(mapStateToProps, { listProducts, clearProducts })(Category);
