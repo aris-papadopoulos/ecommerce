@@ -7,6 +7,7 @@ export const LIST_PRODUCTS = 'list-products';
 export const GET_PRODUCT = 'get-product';
 
 export const CLEAR_PRODUCTS = 'clear-products';
+export const CLEAR_SINGLE_PRODUCT = 'clear-single-product';
 
 const URL = 'https://bp-interview.herokuapp.com';
 
@@ -68,4 +69,8 @@ export function getProduct(ID) {
             dispatch({ type: GET_PRODUCT, payload: data });
         })
     }
+}
+
+export function clearSingleProduct() {
+    return (dispatch) => dispatch({ type: CLEAR_SINGLE_PRODUCT, payload: null });   
 }
