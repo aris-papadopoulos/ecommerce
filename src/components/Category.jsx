@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { listProducts, clearProducts } from '../actions';
+import { listProducts, clearProducts, getCategory, clearCategory } from '../actions';
 import '../styles/category.scss';
 
 const Category = (props) => {
 
-    const { products, listProducts, clearProducts } = props;
+    const { products, category, getCategory, listProducts, clearProducts, clearCategory } = props;
     const { id } = props.match.params;
 
     const prevID = usePrevious(id);
@@ -16,15 +16,17 @@ const Category = (props) => {
         if (id !== prevID) {
             const replaceItems = true;
             listProducts(id, replaceItems);
+            getCategory(id);
         }
-    }, [products, listProducts, id, prevID]);
+    }, [products, listProducts, getCategory, id, prevID]);
 
     // Mount / Unmount events only
     useEffect(() => {
         return () => {
-            clearProducts()
+            clearProducts();
+            clearCategory();
         }
-    }, [clearProducts]);
+    }, [clearProducts, clearCategory]);
 
     const createMarkup = (excerpt) => { return {__html: excerpt}; };
 
@@ -47,10 +49,25 @@ const Category = (props) => {
         )
     }
 
+    const categoryInfo = (data) => {
+        return (
+            <div className="category-banner">
+                <img src={data.image_url} alt={data.title} />
+                <div className="category-banner__info">
+                    <h2>{data.title}</h2>
+                    <p>Προϊόντα: {data.products_count}</p>
+                </div>
+            </div>
+        )
+    }
+
     return (
         <main className="category">
             <div className="category__wrapper">
-                {products.map(data => productCard(data))}
+                {(category) ? categoryInfo(category) : null}
+                <div className="product-list">
+                    {products.map(data => productCard(data))}
+                </div>
             </div>
         </main>
     );
@@ -73,8 +90,9 @@ function usePrevious(value) {
 
 function mapStateToProps(state) {
     return {
-        products: state.products
+        products: state.products,
+        category: state.single_category
     }
 }
 
-export default connect(mapStateToProps, { listProducts, clearProducts })(Category);
+export default connect(mapStateToProps, { listProducts, clearProducts, getCategory, clearCategory })(Category);
