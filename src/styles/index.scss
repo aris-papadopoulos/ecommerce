@@ -5,6 +5,7 @@ body {
         sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-y: scroll;
 }
 
 code {
@@ -21,8 +22,8 @@ img.item {
 }
 
 main {
-    height: calc(85vmin - 40px);
-    padding: 20px;
+    min-height: calc(85vmin - 80px);
+    padding: 40px;
     background: rgba(201, 201, 226, 0.1)
 }
 
