@@ -13,7 +13,7 @@ import ProductListings from './components/ProductListings';
 import CategoryListings from './components/CategoryListings';
 import Homepage from './components/Homepage';
 import NotFound from './components/NotFound';
-import './styles/index.css';
+import './styles/index.scss';
 import * as serviceWorker from './serviceWorker';
 
 // History
