@@ -6,6 +6,8 @@ export const GET_CATEGORY = 'get-category';
 export const LIST_PRODUCTS = 'list-products';
 export const GET_PRODUCT = 'get-product';
 
+export const CLEAR_PRODUCTS = 'clear-products';
+
 const URL = 'https://bp-interview.herokuapp.com';
 
 
@@ -35,16 +37,24 @@ export function getCategory(ID) {
     }
 }
 
-export function listProducts(ID) {
+export function listProducts(ID, replaceItems) {
 
     const headers = { 'Content-Type': 'application/json' }
 
     const request = axios.get(`${URL}/categories/${ID}/products`, headers);
     return (dispatch) => {
+        // If a new page is loaded, clear previous items
+        if (replaceItems) {
+            clearProducts();
+        }
         request.then(({data}) => {
             dispatch({ type: LIST_PRODUCTS, payload: data });
         })
     }
+}
+
+export function clearProducts() {
+    return (dispatch) => dispatch({ type: CLEAR_PRODUCTS, payload: null });
 }
 
 export function getProduct(ID) {
