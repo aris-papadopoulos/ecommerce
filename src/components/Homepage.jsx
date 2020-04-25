@@ -16,7 +16,7 @@ const Homepage = (props) => {
 
     const category = (data) => {
         return (
-            <div className="category" key={data.id}>
+            <div className="category-card" key={data.id}>
                 <Link to={`/category/${data.id}/${data.slug}`}>
                     <img className="item" src={data.image_url} alt={data.title} />
                     <h3>{data.title}</h3>
@@ -26,8 +26,8 @@ const Homepage = (props) => {
     }
 
     return (
-        <main className="categories">
-            <div className="categories__wrapper">
+        <main className="homepage">
+            <div className="homepage__wrapper">
                 {categories.map(data => category(data))}
             </div>
         </main>
