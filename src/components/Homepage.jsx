@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { listCategories } from '../actions';
-import logo from '../logo.svg';
-import '../styles/app.scss';
+import '../styles/homepage.scss';
 
 const Homepage = (props) => {
 
@@ -14,23 +13,21 @@ const Homepage = (props) => {
         }
     }, [categories, listCategories]);
 
+    const category = (data) => {
+        return (
+            <div className="category" key={data.id}>
+                <img className="item" src={data.image_url} />
+                <h3>{data.title}</h3>
+            </div>
+        )
+    }
+
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                className="App-link"
-                href="https://reactjs.org"
-                target="_blank"
-                rel="noopener noreferrer"
-                >
-                Learn React
-                </a>
-            </header>
-        </div>
+        <main className="categories">
+            <div className="categories__wrapper">
+                {categories.map(data => category(data))}
+            </div>
+        </main>
     );
 }
 
