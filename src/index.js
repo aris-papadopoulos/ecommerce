@@ -13,6 +13,8 @@ import ProductListings from './components/ProductListings';
 import CategoryListings from './components/CategoryListings';
 import Homepage from './components/Homepage';
 import NotFound from './components/NotFound';
+import Header from './components/Header';
+
 import './styles/index.scss';
 import * as serviceWorker from './serviceWorker';
 
@@ -27,6 +29,7 @@ ReactDOM.render(
     <React.StrictMode>
         <Provider store={createStoreWithMiddleware(rootReducer)}>
             <Router history={history}>
+                <Header />
                 <Switch>
                     <Route exact path="/product/:id" component={ProductListings} />
                     <Route exact path="/category/:id" component={CategoryListings} />
