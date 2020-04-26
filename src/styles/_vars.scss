@@ -1,8 +1,33 @@
 // Colors
-
 $accent         : #1d538c;
 $accent-dark    :   darken($accent, 10);
 $accent-light   :   lighten($accent, 10);
 
 $light      : #fff;
 $dark       :   #000;
+
+
+// Breakpoints
+@mixin screen($name) {
+    @if map-has-key($breakpoints, $name) {
+        @media only screen and #{map-get($breakpoints, $name)} {
+            @content;
+        }
+    }
+}
+
+$breakpoints:(
+    'mobile':                   '(max-width: 600px)',
+    'mobile-portrait':          '(max-width: 600px) and (orientation: portrait)',
+    'mobile-landscape':         '(max-width: 600px) and (orientation: landscape)',
+    'mobile-large-landscape':   '(min-width: 300px) and (max-width: 780px) and (orientation:landscape)',
+    'tablet':                   '(min-width: 601px) and (max-width: 992px)',
+    'tablet-portrait':          '(min-width: 601px) and (max-width: 992px) and (orientation: portrait)',
+    'tablet-landscape':         '(min-width: 601px) and (max-width: 992px) and (orientation: landscape)',
+    'tablet-up':                '(min-width: 601px)',
+    'mobile-tablet':            '(max-width: 992px)',
+    'mobile-tablet-landscape':  '(max-width: 992px) and (orientation: landscape)',
+    'desktop-up':               '(min-width: 993px)',
+    'desktop-small':            '(max-width: 1200px)',
+    'desktop-large-up':         '(min-width: 1201px)'
+);
