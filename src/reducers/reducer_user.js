@@ -1,14 +1,16 @@
 import { CHANGE_CATEGORY_PARAMS, CLEAR_CATEGORY_PARAMS, GET_CATEGORY } from '../actions';
 
+const categoryParams = {
+    page: 1,
+    limit: 12,
+    sort: 'price',
+    order: 'asc',
+    min_price: null,
+    max_price: null,
+};
+
 const initialState = {
-    categoryParams: {
-        page: 1,
-        limit: 12,
-        sort: 'price',
-        order: 'asc',
-        min_price: null,
-        max_price: null,
-    },
+    categoryParams
 }
 
 export default function (state = initialState, action) {
@@ -22,7 +24,11 @@ console.log(action.type, action.payload);
             }
 
         case CLEAR_CATEGORY_PARAMS:
-            return null;
+            // Resets the category params to the default
+            return {
+                ...state,
+                categoryParams
+            };
 
         case GET_CATEGORY:
             return {
