@@ -2,9 +2,11 @@ import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { listProducts, clearProducts, getCategory, clearCategory } from '../actions';
+import Toolbar from './Toolbar';
 import '../styles/category.scss';
 
 const Category = (props) => {
+
 
     const { products, category, getCategory, listProducts, clearProducts, clearCategory } = props;
     const { id } = props.match.params;
@@ -64,7 +66,13 @@ const Category = (props) => {
     return (
         <main className="category">
             <div className="category__wrapper">
-                {(category) ? categoryInfo(category) : null}
+                {(category) 
+                ? 
+                <>
+                    {categoryInfo(category)}
+                    <Toolbar category={category} />
+                </>
+                : null}
                 <div className="product-list">
                     {products.map(data => productCard(data))}
                 </div>
