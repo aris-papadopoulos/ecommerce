@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { listProducts, clearProducts, getCategory, clearCategory, changeCategoryParams, clearCategoryParams } from '../actions';
 import Toolbar from './Toolbar';
 import Pagination from '@material-ui/lab/Pagination';
+import { usePrevious, showPrice } from '../utilities';
 import '../styles/category.scss';
 
 const Category = (props) => {
@@ -16,6 +17,7 @@ const Category = (props) => {
 
     // Fetch products when URL changes
     useEffect(() => {
+        console.log(id, prevID);
         if (id !== prevID) {
             listProducts(id, params);
             getCategory(id);
@@ -32,8 +34,6 @@ const Category = (props) => {
     }, [clearProducts, clearCategory, clearCategoryParams]);
 
     const createMarkup = (excerpt) => { return {__html: excerpt}; };
-
-    const showPrice = (price) => (price / 100).toFixed(2);
 
     const pageChange = (e, page) => {
         const newParams = { ...params, page }
@@ -93,21 +93,6 @@ const Category = (props) => {
             </div>
         </main>
     );
-}
-
-// Hook - Used to keep prevProps on functional components
-function usePrevious(value) {
-    // The ref object is a generic container whose current property is mutable ...
-    // ... and can hold any value, similar to an instance property on a class
-    const ref = useRef();
-    
-    // Store current value in ref
-    useEffect(() => {
-      ref.current = value;
-    }, [value]); // Only re-run if value changes
-    
-    // Return previous value (happens before update in useEffect above)
-    return ref.current;
 }
 
 function mapStateToProps(state) {

@@ -3,14 +3,13 @@ import { connect } from 'react-redux';
 import { listProducts, changeCategoryParams } from '../actions';
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
+import { showPrice } from '../utilities';
 
 
 const PriceRange = (props) => {
 
     const { params, changeCategoryParams, listProducts } = props;
     const { price_min, price_max, id } = props.category;
-
-    const showPrice = (price) => (price / 100).toFixed(2);
 
     const min = Math.floor(showPrice(price_min));
     const max = Math.ceil(showPrice(price_max));

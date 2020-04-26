@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getProduct, clearSingleProduct } from '../actions';
+import { usePrevious, showPrice } from '../utilities';
 import '../styles/product.scss';
 
 const Product = (props) => {
@@ -13,6 +14,7 @@ const Product = (props) => {
 
     useEffect(() => {
         if (id !== prevID) {
+            console.log(id, prevID);
             getProduct(id);
         }
     }, [id, prevID, getProduct]);
@@ -26,7 +28,6 @@ const Product = (props) => {
 
 
     console.log(product, id);
-    const showPrice = (price) => (price / 100).toFixed(2);
     
     const Product = () => {
         return (
@@ -54,20 +55,6 @@ const Product = (props) => {
     );
 }
 
-// Hook - Used to keep prevProps on functional components
-function usePrevious(value) {
-    // The ref object is a generic container whose current property is mutable ...
-    // ... and can hold any value, similar to an instance property on a class
-    const ref = useRef();
-    
-    // Store current value in ref
-    useEffect(() => {
-      ref.current = value;
-    }, [value]); // Only re-run if value changes
-    
-    // Return previous value (happens before update in useEffect above)
-    return ref.current;
-}
 
 function mapStateToProps(state) {
     return {
