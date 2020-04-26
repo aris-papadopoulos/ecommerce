@@ -14,6 +14,7 @@
     height: 100px;
     background-color: #fff;
     margin: 20px 0;
+    box-shadow: 0 0 2px 1px rgba(0,0,0,0.1);
     img {
         max-height: 90%;
     }
@@ -25,6 +26,12 @@
             margin: 0;
         }
     }
+}
+
+.category-options {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .product-list {
