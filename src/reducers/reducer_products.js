@@ -5,10 +5,7 @@ export default function (state = [], action) {
     switch(action.type) {
         
         case LIST_PRODUCTS:
-            return [
-                ...state,
-                ...action.payload
-            ]
+            return action.payload
 
         case CLEAR_PRODUCTS:
             return [];
