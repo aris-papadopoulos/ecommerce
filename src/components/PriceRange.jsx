@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { listProducts } from '../actions';
+import { listProducts, changeCategoryParams } from '../actions';
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
 
+
 const PriceRange = (props) => {
 
+    const { params, changeCategoryParams, listProducts } = props;
     const { price_min, price_max, id } = props.category;
 
     const showPrice = (price) => (price / 100).toFixed(2);
@@ -14,10 +16,17 @@ const PriceRange = (props) => {
     const max = Math.ceil(showPrice(price_max));
 
     const [range, setRange] = useState([min, max]);
-    
 
     const rangeChange = (e, newValue) => {
-        setRange(newValue);
+        const newParams = {
+            ...params,
+            min_price: newValue[0] * 100,
+            max_price: newValue[1] * 100
+        }
+        // Update user state
+        changeCategoryParams(newParams);
+        // Fetch products based on new parameters
+        listProducts(id, newParams)
     }
 
     return (
@@ -27,8 +36,8 @@ const PriceRange = (props) => {
                 min={min}
                 max={max}
                 value={range}
-                onChange={rangeChange}
-                onChangeCommitted={() => listProducts(id)}
+                onChange={(e, value) => setRange(value)}
+                onChangeCommitted={(e, value) => rangeChange(e, value)}
                 valueLabelDisplay="auto"
                 aria-labelledby="price-range"
                 style={{width: 300}}
@@ -37,5 +46,10 @@ const PriceRange = (props) => {
     )
 }
 
+function mapStateToProps(state) {
+    return {
+        params: state.user.categoryParams
+    }
+}
 
-export default connect(null, { listProducts })(PriceRange);
+export default connect(mapStateToProps, { listProducts, changeCategoryParams })(PriceRange);
