@@ -87,3 +87,7 @@ export function clearSingleProduct() {
 export function changeCategoryParams(params) {
     return (dispatch) => dispatch({ type: CHANGE_CATEGORY_PARAMS, payload: params });   
 }
+
+export function clearCategoryParams(params) {
+    return (dispatch) => dispatch({ type: CLEAR_CATEGORY_PARAMS, payload: null });   
+}
