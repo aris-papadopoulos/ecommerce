@@ -8,7 +8,7 @@ const Toolbar = (props) => {
     const { category } = props;
 
     const sortBy = {
-        id: 'sortBy', 
+        id: 'sort', 
         label: 'Ταξινόμηση κατά',
         labelWidth: 120,
         options: [{
