@@ -20,7 +20,8 @@ const PriceRange = (props) => {
         const newParams = {
             ...params,
             min_price: newValue[0] * 100,
-            max_price: newValue[1] * 100
+            max_price: newValue[1] * 100,
+            page: 1
         }
         // Update user state
         changeCategoryParams(newParams);

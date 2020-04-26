@@ -51,7 +51,8 @@ const DropdownSelect = (props) => {
         setValue(e.target.value);
         const newParams = {
             ...params,
-            [id]: e.target.value
+            [id]: e.target.value,
+            page: 1
         }
         // Update user state
         changeCategoryParams(newParams);
