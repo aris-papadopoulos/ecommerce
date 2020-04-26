@@ -66,7 +66,7 @@ const Category = (props) => {
                 <img src={data.image_url} alt={data.title} />
                 <div className="category-banner__info">
                     <h2>{data.title}</h2>
-                    <p>Προϊόντα: {data.products_count}</p>
+                    <p>Σύνολο προϊόντων: {data.products_count}</p>
                 </div>
             </div>
         )

@@ -29,7 +29,7 @@ const Toolbar = (props) => {
             value: 'asc'
         },
         {
-            label: 'Φθήνουσα',
+            label: 'Φθίνουσα',
             value: 'desc'
         }]
     };
