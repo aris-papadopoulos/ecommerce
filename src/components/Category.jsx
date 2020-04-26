@@ -1,14 +1,15 @@
 import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { listProducts, clearProducts, getCategory, clearCategory } from '../actions';
+import { listProducts, clearProducts, getCategory, clearCategory, changeCategoryParams, clearCategoryParams } from '../actions';
 import Toolbar from './Toolbar';
+import Pagination from '@material-ui/lab/Pagination';
 import '../styles/category.scss';
 
 const Category = (props) => {
 
-
-    const { products, category, getCategory, listProducts, clearProducts, clearCategory, fetchParams } = props;
+    const { products, category, getCategory, listProducts, clearProducts, 
+        clearCategory, params, changeCategoryParams, clearCategoryParams } = props;
     const { id } = props.match.params;
 
     const prevID = usePrevious(id);
@@ -16,22 +17,31 @@ const Category = (props) => {
     // Fetch products when URL changes
     useEffect(() => {
         if (id !== prevID) {
-            listProducts(id, fetchParams);
+            listProducts(id, params);
             getCategory(id);
         }
-    }, [fetchParams, listProducts, getCategory, id, prevID]);
+    }, [params, listProducts, getCategory, id, prevID]);
 
     // Mount / Unmount events only
     useEffect(() => {
         return () => {
             clearProducts();
             clearCategory();
+            clearCategoryParams();
         }
-    }, [clearProducts, clearCategory]);
+    }, [clearProducts, clearCategory, clearCategoryParams]);
 
     const createMarkup = (excerpt) => { return {__html: excerpt}; };
 
     const showPrice = (price) => (price / 100).toFixed(2);
+
+    const pageChange = (e, page) => {
+        const newParams = { ...params, page }
+        // Update user state
+        changeCategoryParams(newParams);
+        // Fetch products based on new parameters
+        listProducts(id, newParams)
+    }
 
     const productCard = (data) => {
         return (
@@ -75,6 +85,11 @@ const Category = (props) => {
                 <div className="product-list">
                     {products.map(data => productCard(data))}
                 </div>
+                {(category) 
+                ?   <div className="pagination">
+                        <Pagination count={Math.ceil(category.products_count / params.limit)} page={params.page} onChange={pageChange} /> 
+                    </div>
+                : null}
             </div>
         </main>
     );
@@ -99,8 +114,8 @@ function mapStateToProps(state) {
     return {
         products: state.products,
         category: state.single_category,
-        fetchParams: state.user.categoryParams
+        params: state.user.categoryParams
     }
 }
 
-export default connect(mapStateToProps, { listProducts, clearProducts, getCategory, clearCategory })(Category);
+export default connect(mapStateToProps, { listProducts, clearProducts, getCategory, clearCategory, changeCategoryParams, clearCategoryParams })(Category);
