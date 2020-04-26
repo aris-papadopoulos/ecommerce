@@ -5,8 +5,6 @@ import DropdownSelect from './DropdownSelect';
 
 const Toolbar = (props) => {
 
-    const { category } = props;
-
     const sortBy = {
         id: 'sort', 
         label: 'Ταξινόμηση κατά',
@@ -36,7 +34,7 @@ const Toolbar = (props) => {
 
     return (
         <div className="category-options">
-            <PriceRange category={category} />
+            <PriceRange />
             <DropdownSelect values={sortBy} />
             <DropdownSelect values={orderBy} />
         </div>

@@ -47,6 +47,7 @@ const PriceRange = (props) => {
 
 function mapStateToProps(state) {
     return {
+        category: state.single_category,
         params: state.user.categoryParams
     }
 }
