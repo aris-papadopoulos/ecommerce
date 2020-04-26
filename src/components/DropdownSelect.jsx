@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { listProducts } from '../actions';
+import { listProducts, changeCategoryParams } from '../actions';
 
 // MUI components
 import { 
@@ -40,28 +40,44 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 const DropdownSelect = (props) => {
-    console.log(props.values);
-    const { label, labelWidth, id, options } = props.values;
 
-    
+    const { params, category, changeCategoryParams, listProducts } = props;
+    const { label, labelWidth, id, options } = props.values;    
     const classes = useStyles();
     
     const [value, setValue] = useState(options[0].value);
+
+    const handleChange = (e) => {
+        setValue(e.target.value);
+        const newParams = {
+            ...params,
+            [id]: e.target.value
+        }
+        // Update user state
+        changeCategoryParams(newParams);
+        // Fetch products based on new parameters
+        listProducts(category.id, newParams);
+    }
 
     return (
         <FormControl variant="outlined" className={classes.formControlFilters} >
             <InputLabel className={classes.inputLabel}>{label}</InputLabel>
             <Select value={value}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={handleChange}
             input={<OutlinedInput labelWidth={labelWidth} id={id} />}
             inputProps={{className: classes.outlinedInput}}
             >
                 {(options.map(option => <MenuItem key={option.label} value={option.value}>{option.label}</MenuItem>))}
-                {/* <MenuItem value="price">Price</MenuItem>
-                <MenuItem value="title">Title</MenuItem> */}
             </Select>
         </FormControl>  
     )
 }
 
-export default connect( null, { listProducts } )(DropdownSelect);
+function mapStateToProps(state) {
+    return {
+        params: state.user.categoryParams,
+        category: state.single_category
+    }
+}
+
+export default connect( mapStateToProps, { listProducts, changeCategoryParams } )(DropdownSelect);
