@@ -1,3 +1,5 @@
+@import './vars';
+
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -24,7 +26,13 @@ img.item {
 main {
     min-height: calc(85vmin - 80px);
     padding: 40px;
-    background: rgba(201, 201, 226, 0.1)
+    background: rgba(201, 201, 226, 0.1);
+    @include screen('tablet') {
+        padding: 20px;
+    }
+    @include screen('mobile') {
+        padding: 10px;
+    }
 }
 
 a {

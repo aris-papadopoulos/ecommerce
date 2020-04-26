@@ -7,8 +7,8 @@ const Toolbar = (props) => {
 
     const sortBy = {
         id: 'sort', 
-        label: 'Ταξινόμηση κατά',
-        labelWidth: 120,
+        label: 'Ταξινόμηση',
+        labelWidth: 84,
         options: [{
             label: 'Τιμή',
             value: 'price'
@@ -35,8 +35,10 @@ const Toolbar = (props) => {
     return (
         <div className="category-options">
             <PriceRange />
-            <DropdownSelect values={sortBy} />
-            <DropdownSelect values={orderBy} />
+            <div className="category-options__selects">
+                <DropdownSelect values={sortBy} />
+                <DropdownSelect values={orderBy} />
+            </div>
         </div>
     );
 }

@@ -39,7 +39,7 @@ const PriceRange = (props) => {
                 onChangeCommitted={(e, value) => rangeChange(e, value)}
                 valueLabelDisplay="auto"
                 aria-labelledby="price-range"
-                style={{width: 300}}
+                id={'range-slider'}
             />
         </div>
     )
