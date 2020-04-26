@@ -8,7 +8,7 @@ import '../styles/category.scss';
 const Category = (props) => {
 
 
-    const { products, category, getCategory, listProducts, clearProducts, clearCategory } = props;
+    const { products, category, getCategory, listProducts, clearProducts, clearCategory, fetchParams } = props;
     const { id } = props.match.params;
 
     const prevID = usePrevious(id);
@@ -16,11 +16,10 @@ const Category = (props) => {
     // Fetch products when URL changes
     useEffect(() => {
         if (id !== prevID) {
-            const replaceItems = true;
-            listProducts(id, replaceItems);
+            listProducts(id, fetchParams);
             getCategory(id);
         }
-    }, [products, listProducts, getCategory, id, prevID]);
+    }, [fetchParams, listProducts, getCategory, id, prevID]);
 
     // Mount / Unmount events only
     useEffect(() => {
@@ -99,7 +98,8 @@ function usePrevious(value) {
 function mapStateToProps(state) {
     return {
         products: state.products,
-        category: state.single_category
+        category: state.single_category,
+        fetchParams: state.user.categoryParams
     }
 }
 
