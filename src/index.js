@@ -26,19 +26,17 @@ export const history = createBrowserHistory();
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
 ReactDOM.render(
-    <React.StrictMode>
-        <Provider store={createStoreWithMiddleware(rootReducer)}>
-            <Router history={history}>
-                <Header />
-                <Switch>
-                    <Route exact path="/product/:id/:slug" component={Product} />
-                    <Route exact path="/category/:id/:slug" component={Category} />
-                    <Route exact path="/" component={Homepage} />
-                    <Route path="*" component={NotFound} />
-                </Switch>
-            </Router>
-        </Provider>
-    </React.StrictMode>,
+    <Provider store={createStoreWithMiddleware(rootReducer)}>
+        <Router history={history}>
+            <Header />
+            <Switch>
+                <Route exact path="/product/:id/:slug" component={Product} />
+                <Route exact path="/category/:id/:slug" component={Category} />
+                <Route exact path="/" component={Homepage} />
+                <Route path="*" component={NotFound} />
+            </Switch>
+        </Router>
+    </Provider>,
     document.getElementById('root')
 );
 
