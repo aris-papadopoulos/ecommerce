@@ -10,6 +10,10 @@ export const CLEAR_PRODUCTS = 'clear-products';
 export const CLEAR_SINGLE_PRODUCT = 'clear-single-product';
 export const CLEAR_CATEGORY = 'clear-category';
 
+export const CHANGE_CATEGORY_PARAMS = 'change-category-params';
+export const CLEAR_CATEGORY_PARAMS = 'clear-category-params';
+
+
 const URL = 'https://bp-interview.herokuapp.com';
 
 
@@ -43,16 +47,16 @@ export function clearCategory() {
     return (dispatch) => dispatch({ type: CLEAR_CATEGORY, payload: null });   
 }
 
-export function listProducts(ID, replaceItems) {
+export function listProducts(ID, params) {
 
-    const headers = { 'Content-Type': 'application/json' }
+    const config = {
+        params,
+        headers: { 'Content-Type': 'application/json' }
+    }
 
-    const request = axios.get(`${URL}/categories/${ID}/products`, headers);
+    const request = axios.get(`${URL}/categories/${ID}/products`, config);
     return (dispatch) => {
-        // If a new page is loaded, clear previous items
-        if (replaceItems) {
-            clearProducts();
-        }
+        clearProducts();
         request.then(({data}) => {
             dispatch({ type: LIST_PRODUCTS, payload: data });
         })
@@ -78,4 +82,8 @@ export function getProduct(ID) {
 
 export function clearSingleProduct() {
     return (dispatch) => dispatch({ type: CLEAR_SINGLE_PRODUCT, payload: null });   
+}
+
+export function changeCategoryParams(params) {
+    return (dispatch) => dispatch({ type: CHANGE_CATEGORY_PARAMS, payload: params });   
 }
