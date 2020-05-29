@@ -19,8 +19,8 @@ import './styles/index.scss';
 import * as serviceWorker from './serviceWorker';
 
 // History
-import { createBrowserHistory } from 'history';
-export const history = createBrowserHistory();
+import createHashHistory from 'history/createHashHistory';
+export const history = createHashHistory();
 
 // Create store and apply middleware
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
